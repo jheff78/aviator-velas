@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 # 🔐 Login simples com senha vinda do secrets.toml
 def login():
