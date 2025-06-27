@@ -8,6 +8,18 @@ def login():
     if password != st.secrets["password"]:
         st.stop()
 
+def obter_velas_da_api():
+    try:
+        url = "https://aviator-api-bz4x.onrender.com/velas"
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            return response.json(), None
+        else:
+            return None, "❌ Erro ao buscar velas da API."
+    except Exception as e:
+        return None, f"❌ Erro de conexão: {e}"
+
+
 # 🚀 Analisador de Velas
 def analisar_velas(velas_raw):
     try:
