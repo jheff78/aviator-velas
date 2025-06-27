@@ -1,13 +1,6 @@
 import streamlit as st
 import requests
 
-# 🔐 Login simples com senha vinda do secrets.toml
-def login():
-    st.title("🔐 Login")
-    password = st.text_input("Digite a senha:", type="password")
-    if password != st.secrets["password"]:
-        st.stop()
-
 # 🌐 Buscar velas da API externa
 def obter_velas_da_api():
     try:
@@ -37,14 +30,14 @@ def analisar_velas(velas_raw):
 
 # 🟢 Execução principal
 def main():
-    login()
-    st.title("📊 Aviator - Analisador de Velas")
+    st.markdown("<h1 style='text-align: center;'>📊 Aviator - Analisador de Velas</h1>", unsafe_allow_html=True)
 
-    velas_raw, erro = obter_velas_da_api()
+    dados, erro = obter_velas_da_api()
 
     if erro:
         st.error(erro)
     else:
+        velas_raw = dados.get("velas", [])
         prob, erro_analise = analisar_velas(velas_raw)
         if erro_analise:
             st.warning(erro_analise)
