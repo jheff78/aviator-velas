@@ -37,6 +37,16 @@ def analisar_velas(velas_raw):
 
 # --- EXECUÇÃO ---
 login()
+velas_raw, erro = obter_velas_da_api()
+if erro:
+    st.error(erro)
+else:
+    prob, erro_analise = analisar_velas(velas_raw)
+    if erro_analise:
+        st.warning(erro_analise)
+    else:
+        st.success(f"🎯 Probabilidade de vir acima de 10x: **{prob:.2f}%**")
+
 
 st.title("🎯 Analisador de Velas – H2Bet Manual")
 st.markdown("Cole abaixo as **últimas 20 velas** separadas por vírgula (exemplo: `1.2x, 10.5x, 3.4x ...`)")
